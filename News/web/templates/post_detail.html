@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load get_dict_element %}
 {% load convert_date %}
 
 {% block main %}
@@ -30,8 +31,8 @@
                     </div>
                     <div class="detail-news">
                         {% for paragraph in post.paragraphs %}
-                            {% with paragraph.body as body %}
-                                {% if paragraph.type == "text" %}
+                            {% with paragraph|get_dic_element:"body" as body %}
+                                {% if paragraph|get_dic_element:"type" == "text" %}
                                     <p style="text-align: justify">{{ body }}</p>
                                 {% else %}
                                     <img class="center-image" src="{{ body }}" alt="{{ post.title }}">

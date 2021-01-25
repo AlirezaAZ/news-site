@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% load static %}
 {% load get_posts %}
+{% load get_dict_element %}
 
 {% block main %}
     <div class="main-content">
@@ -141,8 +142,8 @@
                 </div>
                 <div class="owl-carousel section-carousel p-3">
                     {% for card in category|get_posts %}
-                        {% if card.type == 1 %}
-                            {% with post=card.items %}
+                        {% if card|get_dic_element:"type" == 1 %}
+                            {% with post=card|get_dic_element:"items" %}
                                 <div class="">
                                     <div class="card-deck">
                                         <div class="card pro-card">
@@ -165,10 +166,10 @@
                                     </div>
                                 </div>
                             {% endwith %}
-                        {% elif card.type == 3 %}
+                        {% elif card|get_dic_element:"type" == 3 %}
                             <div class="">
                                 <div class="card card-list-section " style="max-width: 540px;">
-                                    {% for post in card.items %}
+                                    {% for post in card|get_dic_element:"items" %}
                                         <div class="row no-gutters position-relative border-bottom">
                                             <div class="col-5">
                                                 <a href="{{ post.get_absolute_url }}"> <img src="{{ post.main_image }}"
@@ -194,7 +195,7 @@
                         {% else %}
                             <div class="">
                                 <div class="card news-box">
-                                    {% for post in card.items %}
+                                    {% for post in card|get_dic_element:"items" %}
                                         <div class="news-box-item d-flex border-bottom p-2">
                                             <a href="{{ post.get_absolute_url }}"> <small>{{ post.title }}</small></a>
                                             <div class="news-reporter">
