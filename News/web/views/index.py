@@ -27,7 +27,7 @@ class Index(generic.TemplateView):
             categories = set()
             for cat in cats:
                 if cat.parent is None:
-                    sub_cats = models.Category.objects.filter(parent=cat)
+                    sub_cats = models.Category.objects.filter(parent=cat).cache(timeout=60 * 60 * 24 * 15)
                     categories = categories.union(set(sub_cats))
                 else:
                     categories.add(cat)
